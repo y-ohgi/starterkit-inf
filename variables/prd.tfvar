@@ -1,0 +1,10 @@
+env = "prd"
+
+name = "prd-myapp"
+
+tags = {
+  "Name" = "prd-myapp"
+  "Environment" = "prd"
+}
+
+vpc_cidr = "10.0.0.0/16"
