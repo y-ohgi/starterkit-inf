@@ -1,20 +1,16 @@
-variable "env" {
-  description = ""
-  type = string
-}
+locals {
+  workspaces = {
+    default = local.stg
+    stg     = local.stg
+    prd     = local.prd
+  }
 
-variable "name" {
-  description = ""
-  type = string
-}
+  workspace = local.workspaces[terraform.workspace]
 
-variable "tags" {
-  description = "A map of tags to add to all resources"
-  type = map
-}
+  name = "${terraform.workspace}-myapp"
 
-variable "vpc_cidr" {
-  description = ""
-  type = string
+  tags = {
+    Terraform   = "true"
+    Environment = terraform.workspace
+  }
 }
-

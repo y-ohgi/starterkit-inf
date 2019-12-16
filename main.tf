@@ -14,6 +14,6 @@ provider "aws" {
 module "vpc" {
   source = "./modules/vpc"
 
-  vpc_cidr = var.vpc_cidr
-  tags = var.tags
+  vpc_cidr = local.workspace["vpc_cidr"]
+  tags = local.tags
 }
