@@ -10,6 +10,7 @@ locals {
   name = "${terraform.workspace}-myapp"
 
   tags = {
+    Name        = local.name
     Terraform   = "true"
     Environment = terraform.workspace
   }

@@ -1,3 +1,4 @@
 locals {
-  prd = {}
+  prd = {
+  }
 }

@@ -8,12 +8,11 @@ terraform {
 
 provider "aws" {
   version = "~> 2.42"
-  region = "ap-northeast-1"
+  region  = "ap-northeast-1"
 }
 
 module "vpc" {
   source = "./modules/vpc"
-
-  vpc_cidr = local.workspace["vpc_cidr"]
-  tags = local.tags
+  name   = local.name
+  tags   = local.tags
 }
