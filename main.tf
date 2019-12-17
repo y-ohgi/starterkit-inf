@@ -37,3 +37,12 @@ module "sg_alb" {
   ]
 }
 
+module "acm" {
+  source = "./modules/acm"
+
+  name = local.name
+  tags = local.tags
+
+  domains = split(",", local.workspace["domains"])
+}
+
