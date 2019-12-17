@@ -16,9 +16,7 @@ resource "aws_vpc" "this" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 
-  tags = merge(
-    var.tags
-  )
+  tags = var.tags
 }
 
 #########################
@@ -124,8 +122,8 @@ resource "aws_subnet" "public" {
   availability_zone = element(var.azs, count.index)
 
   tags = merge(
-    map("Name", format("%s-public-%d", var.name, count.index)),
-    var.tags
+    var.tags,
+    map("Name", format("%s-public-%d", var.name, count.index))
   )
 }
 

@@ -21,7 +21,7 @@ module "vpc" {
 }
 
 #########################
-# ALB
+# Security Group
 #########################
 module "sg_alb" {
   source = "./modules/securitygroup"
@@ -43,6 +43,41 @@ module "sg_alb" {
   ]
 }
 
+module "sg_api" {
+  source = "./modules/securitygroup"
+
+  vpc_id = module.vpc.vpc_id
+
+  name = "${local.name}-api"
+  tags = local.tags
+
+  ingress_with_security_group_rules = [
+    {
+      "source_security_group_id" : module.sg_alb.sg_id,
+      "port" : "80"
+    }
+  ]
+}
+
+module "sg_mysql" {
+  source = "./modules/securitygroup"
+
+  vpc_id = module.vpc.vpc_id
+
+  name = "${local.name}-mysql"
+  tags = local.tags
+
+  ingress_with_security_group_rules = [
+    {
+      "source_security_group_id" : module.sg_api.sg_id,
+      "port" : "3306"
+    }
+  ]
+}
+
+#########################
+# ALB
+#########################
 module "acm" {
   source = "./modules/acm"
 
