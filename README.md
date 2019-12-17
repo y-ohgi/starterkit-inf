@@ -1,6 +1,35 @@
+starterkit-inf
+---
+
+[y-ohgi/starterkit](https://github.com/y-ohgi/starterkit) が前提になります。
+
+# About
+<img src="https://github.com/y-ohgi/starterkit-inf/blob/master/docs/architecture.png?raw=true" />
+
 # How to Start
+## Fork
+このリポジトリをForkして自身のOrganization配下に配置します。
+
+## Terraformコンテナの立ち上げ
+dockerでterraformを起動します。  
+Terraformのバージョン差異を解決できればbrewでインストールでもtfenvを使用しても問題ありませんが、今回はバージョンを指定しやすく比較的誰の環境にも入っているであろうdockerを使用します。
 ```
 $ docker run -v $HOME/.aws:/root/.aws -v `pwd`:/code -w /code --entrypoint=ash -it hashicorp/terraform:0.12.18
+```
+
+## 初期化処理
+```
 # terraform init
-# terraform plan -var-file=variables/stg.tfvar
+# terraform workspace new stg
+```
+
+## 実行
+```
+# terraform plan
+# terraform apply
+```
+
+## 削除
+```
+# terraform destroy
 ```
