@@ -4,7 +4,7 @@ starterkit-inf
 [y-ohgi/starterkit](https://github.com/y-ohgi/starterkit) が前提になります。
 
 # About
-<img src="https://github.com/y-ohgi/starterkit-inf/blob/master/docs/architecture.png?raw=true" />
+<img src="https://github.com/y-ohgi/starterkit-inf/blob/master/docs/architecture.png?raw=true" />  
 
 # How to Start
 ## Fork
@@ -18,10 +18,16 @@ $ docker run -v $HOME/.aws:/root/.aws -v `pwd`:/code -w /code --entrypoint=ash -
 ```
 
 ## 初期化処理
+workspaceを使用して環境を分けているため、workspaceを作成します。デフォルトでは `stg` と `prd` の2種類用意しています。
+
 ```
 # terraform init
 # terraform workspace new stg
 ```
+
+## 準備
+Route53のホストゾーンにドメインを用意し、 `variables_<env>.tf` にの `domains` 使用するドメインを記載します。  
+`domains` は `,` 区切りで複数のドメインを記載することが可能です。
 
 ## 実行
 ```

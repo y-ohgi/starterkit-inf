@@ -43,38 +43,6 @@ module "sg_alb" {
   ]
 }
 
-module "sg_api" {
-  source = "./modules/securitygroup"
-
-  vpc_id = module.vpc.vpc_id
-
-  name = "${local.name}-api"
-  tags = local.tags
-
-  ingress_with_security_group_rules = [
-    {
-      "source_security_group_id" : module.sg_alb.sg_id,
-      "port" : "80"
-    }
-  ]
-}
-
-module "sg_mysql" {
-  source = "./modules/securitygroup"
-
-  vpc_id = module.vpc.vpc_id
-
-  name = "${local.name}-mysql"
-  tags = local.tags
-
-  ingress_with_security_group_rules = [
-    {
-      "source_security_group_id" : module.sg_api.sg_id,
-      "port" : "3306"
-    }
-  ]
-}
-
 #########################
 # ALB
 #########################
@@ -122,5 +90,18 @@ resource "aws_route53_record" "this" {
     name                   = module.alb.alb_dns_name
     zone_id                = module.alb.alb_zone_id
     evaluate_target_health = true
+  }
+}
+
+#########################
+# ECS Cluster
+#########################
+resource "aws_ecs_cluster" "this" {
+  name = local.name
+  tags = local.tags
+
+  setting {
+    name  = "containerInsights"
+    value = "enabled"
   }
 }
