@@ -33,6 +33,8 @@ resource "aws_route53_record" "validation" {
   name    = lookup(aws_acm_certificate.cert.domain_validation_options[count.index], "resource_record_name")
   type    = lookup(aws_acm_certificate.cert.domain_validation_options[count.index], "resource_record_type")
   records = [lookup(aws_acm_certificate.cert.domain_validation_options[count.index], "resource_record_value")]
+
+  ttl = 60
 }
 
 resource "aws_acm_certificate_validation" "validation" {
