@@ -13,7 +13,7 @@ output "alb_sg_id" {
   value       = module.sg_alb.sg_id
 }
 
-output "alb_https_listener_arn_web" {
+output "alb_https_listener_arn" {
   description = "ALB HTTPS ListenerのARN"
   value       = module.alb.https_listener_arn
 }
