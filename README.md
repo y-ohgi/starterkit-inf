@@ -60,9 +60,9 @@ workspaceを使用して環境（本番・ステージング等）の設定し�
 
 ## 6. 変数の編集
 1. `variables.tf` の `name` を作成するプロダクトに合わせて命名します
-  - `name = "${terraform.workspace}-<YOUR PRODUCT NAME>"` 
+    - `name = "${terraform.workspace}-<YOUR PRODUCT NAME>"` 
 2. Route53のホストゾーンにドメインを用意し、 `variables_<env>.tf` の `domains` へ使用するドメインを記載します。  
-  - `domains` は `,` 区切りで複数のドメインを記載することが可能です。
+    - `domains` は `,` 区切りで複数のドメインを記載することが可能です。
 
 ## 7. プロビジョニング
 `plan` でdry-runを実行し、 `apply` でプロビジョニングを実施します。
