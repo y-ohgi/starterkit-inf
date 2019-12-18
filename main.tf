@@ -1,7 +1,7 @@
 terraform {
   required_version = ">=0.12"
   backend "s3" {
-    key    = "starterkit-inf" # "inf.tfstate"
+    key    = "inf.tfstate"
     region = "ap-northeast-1"
   }
 }

@@ -11,7 +11,7 @@ locals {
 
   tags = {
     Name        = local.name
-    Terraform   = "true"
     Environment = terraform.workspace
+    Terraform   = "true"
   }
 }
