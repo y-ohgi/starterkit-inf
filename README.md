@@ -1,10 +1,11 @@
 starterkit-inf
 ---
 
-[y-ohgi/starterkit](https://github.com/y-ohgi/starterkit) が前提になります。
-
 # About
 <img src="https://github.com/y-ohgi/starterkit-inf/blob/master/docs/architecture.png?raw=true" />  
+
+- [y-ohgi/starterkit](https://github.com/y-ohgi/starterkit) がメインのドキュメントになります。
+- [y-ohgi/starterkit-app](https://github.com/y-ohgi/starterkit-app) がECSを用いて構築する例になります。
 
 # How to Start
 ## 1. Fork
@@ -29,9 +30,9 @@ $ aws s3api create-bucket \
     --region ap-northeast-1 \
     --create-bucket-configuration LocationConstraint=ap-northeast-1 \
     --bucket <S3 BUCKET NAME>
-$ aws s3 put-bucket-versioning \
+$ aws s3api put-bucket-versioning \
     --versioning-configuration Status=Enabled \
-    --bucket arn:aws:s3:::<S3 BUCKET NAME>
+    --bucket <S3 BUCKET NAME>
 ```
 
 ## 4. Terraformコンテナの立ち上げ
@@ -55,13 +56,13 @@ workspaceを使用して環境（本番・ステージング等）の設定し�
 
 ```
 # terraform init -backend-config="bucket=<S3 BUCKET NAME>"
-# terraform workspace new <env>
+# terraform workspace new <ENV>
 ```
 
 ## 6. 変数の編集
 1. `variables.tf` の `name` を作成するプロダクトに合わせて命名します
     - `name = "${terraform.workspace}-<YOUR PRODUCT NAME>"` 
-2. Route53のホストゾーンにドメインを用意し、 `variables_<env>.tf` の `domains` へ使用するドメインを記載します。  
+2. Route53のホストゾーンにドメインを用意し、 `variables_<ENV>.tf` の `domains` へ使用するドメインを記載します。  
     - `domains` は `,` 区切りで複数のドメインを記載することが可能です。
 
 ## 7. プロビジョニング
@@ -80,7 +81,7 @@ workspaceを使用して環境（本番・ステージング等）の設定し�
 # Tips
 ## 環境の追加
 workspaceを追加し、 `variables.tf` の `workspaces` へ追加したworkspaceを記載します。  
-次に、 `variables_<env>.tf` を作成し、他の環境同様の値を記載します。
+次に、 `variables_<ENV>.tf` を作成し、他の環境同様の値を記載します。
 
 ```
 # terraform workspace new dev
@@ -92,7 +93,7 @@ workspaceを追加し、 `variables.tf` の `workspaces` へ追加したworkspac
 
 [State: Workspaces - Terraform by HashiCorp](https://www.terraform.io/docs/state/workspaces.html)
 
-公式ではステージングやプロダクションのような環境の出し分けにworkspaceの使用を推奨されていませんが、当リポジトリでは環境差分は `variables_<env>.tf` で収まる範囲で環境差分が少ないことと、同一の `.tf` ファイル郡で `.tfstate` を環境毎に分けたいためworkspaceを使用します。
+公式ではステージングやプロダクションのような環境の出し分けにworkspaceの使用を推奨されていませんが、当リポジトリでは環境差分は `variables_<ENV>.tf` で収まる範囲で環境差分が少ないことと、同一の `.tf` ファイル郡で `.tfstate` を環境毎に分けたいためworkspaceを使用します。
 
 ## AWS認証情報の切り替え
 How to Startでは `aws configure` で生成したAWSの認証情報を利用していました。  
